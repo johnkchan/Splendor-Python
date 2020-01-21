@@ -1,7 +1,13 @@
 class Card:
     def __init__(self, tokenType, cost, prestige):
         self.__tokenType = tokenType
-        self.__cost = cost
+        self.__cost = {
+            "diamond": cost[0],
+            "sapphire": cost[1],
+            "emerald": cost[2],
+            "ruby": cost[3],
+            "onyx": cost[4]
+        }
         self.__prestige = prestige
 
     def getTokenType(self):
