@@ -1,3 +1,5 @@
+from prettytable import PrettyTable
+
 class Player:
     def __init__(self, number):
         self.__number = str(number)
@@ -45,6 +47,15 @@ class Player:
     def addGemToken(self, amount, gem):
         gem = gem.lower()
         self.__gemTokens[gem] += amount
+
+    # TODO: Show all players gem tokens at once
+    def displayGemTokens(self):
+        print("─────────────────────────────────────────────────────────────────────")
+        print("Player " + self.__number + "'s Gem Tokens:")
+        t = PrettyTable(["Gems", "Quantity"])
+        for gem in self.__gemTokens:
+            t.add_row([gem.title(), self.__gemTokens[gem]])
+        print(t)
 
     def getCardTokens(self):
         return self.__cardTokens

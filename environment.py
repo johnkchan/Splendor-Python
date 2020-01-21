@@ -140,6 +140,7 @@ class Environment:
                 self.displayNobles()
                 self.displayTable()
                 self.displayGemTokens()
+                player.displayGemTokens()
                 player.actions(self)
                 self.drawTableCard()
                 self.checkVisitingNobles(player)
