@@ -71,7 +71,7 @@ class Deck:
         deckData = [tier1Data, tier2Data, tier3Data]
         decks = [Deck(), Deck(), Deck()]
 
-        for i in range(3):
+        for i in range(len(decks)):
             for card in deckData[i]:
                 decks[i].addCard(Card(card[0], card[1], card[2]))
             decks[i].shuffle

@@ -135,6 +135,8 @@ class Player:
             self.__reservedCards.append(devCard)
             print("Card #" + str(cardNum) + " from the Tier " + str(deckTier) + " Deck has been reserved.")
             
+            environment.takeTableCard(deckTier, cardNum)
+
             if environment.getGemTokens()["gold joker"] >= 1:
                 self.addGemToken(1, "gold joker")
                 environment.takeGemToken(1, "gold joker")
@@ -162,30 +164,27 @@ class Player:
             isPurchasable = True
             
             for cost in cardCost:
-                if cardCost[cost] > (self.getGemTokens[cost] + self.getCardTokens[cost]):
+                if cardCost[cost] > (self.getGemTokens()[cost] + self.getCardTokens()[cost]):
                     isPurchase = False
             
             if isPurchasable:
-                for cost in cardCost
+                for cost in cardCost:
                     if cardCost[cost] > 0:
-                        self.takeGemTokens -= (cardCost[cost] - self.getCardTokens[cost])
+                        self.takeGemTokens(cardCost[cost] - self.getCardTokens()[cost], cost)
+
+            environment.takeTableCard(deckTier, cardNum)
+            print("Card #" + str(cardNum) + " from the Tier " + str(deckTier) + " Deck has been purchased.")
 
             # Add Prestige from purchased card and increment cardToken
             self.addPrestige(devCard.getPrestige())
             self.addCardTokens(1, devCard.getTokenType())
 
-            # TODO: Remove card from table and draw new card to take its place
                 
     def isValidGem(self, gem):
         gem = gem.lower()
-        isValid = False
+        isValid = True
 
-        for gemType in self.__gemTokens:
-            if gem == gemType:
-                isValid = True
-        
-        if gem == "gold joker":
+        if gem == "gold joker" or gem not in self.__gemTokens:
             isValid = False
 
         return isValid
-        

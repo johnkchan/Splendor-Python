@@ -120,6 +120,19 @@ class Environment:
     def takeGemToken(self, amount, gem):
         self.__gemTokens[gem] -= amount
 
+    def takeTableCard(self, deckTier, cardNum):
+        devCard = self.__table[deckTier - 1][cardNum - 1]
+        self.__table[deckTier - 1][cardNum - 1] = ""
+        return devCard
+
+    def drawTableCard(self):
+        # Replace Table Card if enough cards in same tier deck
+        for tier, deck in enumerate(self.__table):
+            for cardNum, card in enumerate(deck):
+                if card == "":
+                    newCard = self.__decks[tier - 1].draw()
+                    self.__table[tier][cardNum] = newCard
+        
     def initializeGame(self):
         prestigeWinCondition = 15
         run = True
@@ -130,6 +143,7 @@ class Environment:
                 self.displayTable()
                 self.displayGemTokens()
                 player.actions(self)
+                self.drawTableCard()
                 self.checkVisitingNobles(player)
                 player.incrementTurns()
 
