@@ -68,10 +68,15 @@ class Player:
         print("[2] Take 2 gem tokens of the same color.")
         print("[3] Reserve 1 development card and take 1 gold token (joker).")
         print("[4] Purchase 1 face-up development card from the middle of the table or a previously reserved one.")
-        choice = int(input("Please Enter Action #:"))
-        while choice not in [1, 2, 3, 4]:
-            print("Not Valid Action #")
-            choice = int(input("Please Enter Action #: "))
+        
+        # Request action to be selected by Player
+        while True:
+            choice = input("Please Enter Action #: ")
+            if choice.isdigit():
+                choice = int(choice)
+                if choice in [1, 2, 3, 4]:
+                    break
+            print("Not Valid Action Selection.")
 
         # Take 3 gem tokens of different colors.
         if choice == 1:
@@ -81,15 +86,22 @@ class Player:
                 
                 while True:
                     gemChoice = input(prompt)
-                
+
+                    warning = "Invalid Gem Type."
                     # Validate if gem choice is not repeated and gem choice is valid gem type
                     isRepeated = True if gemChoice.lower() in selectedGems else False
                     if self.isValidGem(gemChoice) and not isRepeated:
-                        break
+                        gemChoice = gemChoice.lower()
+                        if environment.getGemTokens()[gemChoice] > 0:
+                            break
+                        else:
+                            warning += " Insufficient amount of gem tokens to take."
 
-                    warning = "Invalid Gem Type."
                     if isRepeated:
                         warning += " Gems cannot be repeated"
+                    if gemChoice.lower() in ["gold joker", "gold", "joker"]:
+                        warning += " Gold (Joker) tokens cannot be selected."
+
                     print(warning)
 
                 selectedGems.append(gemChoice.lower())
@@ -97,22 +109,30 @@ class Player:
             for gem in selectedGems:
                 self.addGemToken(1, gem)
                 environment.takeGemToken(1, gem)
-
+            
         # Take 2 gem tokens of the same color.
         elif choice == 2:
             prompt = "Please Enter Gem Type: "
-            
+
             while True:
                 gemChoice = input(prompt)
-            
-                if self.isValidGem(gemChoice):
-                    break
+                warning = "Invalid Gem Type."
 
-                print("Invalid Gem Type.")
+                if self.isValidGem(gemChoice):
+                    gemChoice = gemChoice.lower()
+                    if environment.getGemTokens()[gemChoice] >= 4:
+                        break
+                    else:
+                        warning += " 2 of the same gem tokens can only be taken when there are 4 or more."
+                    
+                if gemChoice.lower() in ["gold joker", "gold", "joker"]:
+                    warning += " Gold (Joker) tokens cannot be selected."
+                print(warning)
 
             gem = gemChoice.lower()
             self.addGemToken(2, gem)
             environment.takeGemToken(2, gem)
+            print("2 " + gemChoice.title() + " tokens have been added.")
 
         # Reserve 1 development card and take 1 gold token (joker).
         elif choice == 3:

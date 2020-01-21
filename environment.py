@@ -68,24 +68,22 @@ class Environment:
 
         for i, deck in enumerate(decks):
             header = ["Fields"]
-            cardDetails = [["Token"], ["Prestige"], ["Cost"], ["Diamond"], ["Sapphire"], ["Emerald"], ["Ruby"], ["Onyx"]]
+            cardDetails = [["Token"], ["Prestige"], ["Diamond"], ["Sapphire"], ["Emerald"], ["Ruby"], ["Onyx"]]
             for cardNum, card in enumerate(deck):
                 header.append("Card #" + str(cardNum + 1))
                 cardCost = card.getCost()
-                cardDetails[0].append(card.getTokenType())
+                cardDetails[0].append(card.getTokenType().title())
                 cardDetails[1].append(card.getPrestige())
-                cardDetails[2].append("-------")
-                cardDetails[3].append(cardCost["diamond"])
-                cardDetails[4].append(cardCost["sapphire"])
-                cardDetails[5].append(cardCost["emerald"])
-                cardDetails[6].append(cardCost["ruby"])
-                cardDetails[7].append(cardCost["onyx"])
-
+                cardDetails[2].append(cardCost["diamond"])
+                cardDetails[3].append(cardCost["sapphire"])
+                cardDetails[4].append(cardCost["emerald"])
+                cardDetails[5].append(cardCost["ruby"])
+                cardDetails[6].append(cardCost["onyx"])
 
             t = PrettyTable(header)
             for detail in cardDetails:
                 t.add_row(detail)
-            print("Tier #" + str(len(decks) - i) + " Cards:")
+            print("Tier " + str(len(decks) - i) + " Cards:")
             print(t)
 
     def displayGemTokens(self):
@@ -152,4 +150,4 @@ class Environment:
                     run = False
 
                 # Below line is only for debugging purposes
-                return 0
+                # return 0
