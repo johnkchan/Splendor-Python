@@ -1,5 +1,6 @@
 from prettytable import PrettyTable
 
+
 class Player:
     def __init__(self, number):
         self.__number = str(number)
@@ -162,15 +163,16 @@ class Player:
             cardNum = int(cardNum)
             
             # TODO: Check if reservedCards is maxed out
-            devCard = environment.getTable()[deckTier - 1][cardNum - 1]
-            self.__reservedCards.append(devCard)
-            print("Card #" + str(cardNum) + " from the Tier " + str(deckTier) + " Deck has been reserved.")
-            
-            environment.takeTableCard(deckTier, cardNum)
+            if len(self.__reservedCards) < 3:
+                devCard = environment.getTable()[deckTier - 1][cardNum - 1]
+                self.__reservedCards.append(devCard)
+                print("Card #" + str(cardNum) + " from the Tier " + str(deckTier) + " Deck has been reserved.")
+                
+                environment.takeTableCard(deckTier, cardNum)
 
-            if environment.getGemTokens()["gold joker"] >= 1:
-                self.addGemToken(1, "gold joker")
-                environment.takeGemToken(1, "gold joker")
+                if environment.getGemTokens()["gold joker"] >= 1:
+                    self.addGemToken(1, "gold joker")
+                    environment.takeGemToken(1, "gold joker")
 
         # Purchase 1 face-up development card from the middle of the table or a previously reserved one.
         elif choice == 4:
@@ -196,7 +198,7 @@ class Player:
             
             for cost in cardCost:
                 if cardCost[cost] > (self.getGemTokens()[cost] + self.getCardTokens()[cost]):
-                    isPurchase = False
+                    isPurchasable = False
             
             if isPurchasable:
                 for cost in cardCost:
