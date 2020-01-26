@@ -2,7 +2,7 @@ from prettytable import PrettyTable
 
 
 class Player:
-    
+
     def __init__(self, number):
         self.__number = str(number)
         self.__prestige = 0
@@ -106,7 +106,7 @@ class Player:
             if choice == 1:
                 selectedGems = []
                 for i in range(3):
-                    print("Select Desired Gem Type:", "Diamond", "Sapphire", "Emerald", "Ruby", "Onyx")
+                    print("Gem Types:", "Diamond", "Sapphire", "Emerald", "Ruby", "Onyx")
                     prompt = "Please Enter Gem Type #" + str(i + 1) + ": "
                     
                     while True:
@@ -139,7 +139,7 @@ class Player:
 
             # Take 2 gem tokens of the same color.
             elif choice == 2:
-                print("Select Desired Gem Type:", "Diamond", "Sapphire", "Emerald", "Ruby", "Onyx")
+                print("Gem Types:", "Diamond", "Sapphire", "Emerald", "Ruby", "Onyx")
                 prompt = "Please Enter Gem Type: "
 
                 while True:
