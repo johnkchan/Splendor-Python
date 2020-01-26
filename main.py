@@ -1,6 +1,6 @@
 from environment import Environment
 
- # Check if user entered an acceptable input of 2, 3, or 4
+# Check if user entered an acceptable input of 2, 3, or 4
 while True:
     playerCount = input("How many players? Please Enter 2, 3, or 4: ")
     if playerCount.isdigit():
@@ -9,4 +9,5 @@ while True:
             break
     print("Invalid Selection!")
 
+# Run game environment based on number of players
 game = Environment(playerCount)

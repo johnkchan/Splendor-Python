@@ -3,7 +3,7 @@ from card import Card
 
 
 class Deck:
-
+    
     def __init__(self):
         self.__cards = []
 
@@ -78,9 +78,11 @@ class Deck:
 
         return decks
 
+    # Function adds single card object to self.__cards array 
     def addCard(self, card):
         self.__cards.append(card)
-
+    
+    # Function randomizes the position of the cards within self.__cards array
     def shuffle(self):
         cardCount = len(self.__cards)
         for i in range(cardCount):
@@ -89,6 +91,7 @@ class Deck:
             self.__cards[randNum] = self.__cards[i]
             self.__cards[i] = temp
 
+    # Function removes last indexed card from self.__cards array and returns the card
     def draw(self):
         topCard = self.__cards.pop()
         return topCard

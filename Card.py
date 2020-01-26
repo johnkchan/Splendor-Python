@@ -1,4 +1,5 @@
 class Card:
+    
     def __init__(self, tokenType, cost, prestige):
         self.__tokenType = tokenType
         self.__cost = {

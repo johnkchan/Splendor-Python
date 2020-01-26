@@ -149,6 +149,3 @@ class Environment:
                 if player.getPrestige() >= prestigeWinCondition:
                     print("Player #" + player.getNumber() + " has won!")
                     run = False
-
-                # Below line is only for debugging purposes
-                # return 0
